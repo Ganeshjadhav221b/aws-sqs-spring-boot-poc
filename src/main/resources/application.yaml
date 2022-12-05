@@ -1,17 +1,56 @@
 spring:
+  kafka:
+    bootstrap-servers: http://localhost:29092
+    other-bootstrap-servers: http://localhost:29092 #,http://localhost:9093, http://localhost:9094
+    properties:
+      spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+      security.protocol: PLAINTEXT
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: my-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   autoconfigure:
     exclude:
       - org.springframework.cloud.aws.autoconfigure.context.ContextInstanceDataAutoConfiguration
       - org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration
       - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
-
+server:
+  port: 9091
 cloud:
   aws:
     region:
       static: us-east-1
       auto: false
     credentials:
-      access-key: XXXX
-      secret-key: XXXX
+      access-key: AKIASRIDEQLIODB4SI6J
+      secret-key: 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
     end-point:
-      uri: https://sqs.us-east-1.amazonaws.com/549485575026/spring-boot-poc
+      uri: https://sqs.us-east-1.amazonaws.com/174489633488/demo-delay-queue
+
+sqs:
+  endpoint: http://localhost:9324/queue/default
+aws:
+  region: us-central-1
+  access-key: notValidKey
+  secret-key: notValidSecret
+
+
+kafka-config:
+  avro-enabled: false
+  key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+  key-serializer: org.apache.kafka.common.serialization.LongDeserializer
+  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+  value-serialivro-groupzer: io.confluent.kafka.serializers.KafkaAvroSerializer
+  topic-name: demo-1 #, avro-demo
+  schema-registry-url: http://localhost:8081
+  nbre-topic: demo-1,avro-demo
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+  root: DEBUG
