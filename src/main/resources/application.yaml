@@ -25,10 +25,10 @@ cloud:
       static: us-east-1
       auto: false
     credentials:
-      access-key: AKIASRIDEQLIODB4SI6J
-      secret-key: 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
+      access-key:
+      secret-key:
     end-point:
-      uri: https://sqs.us-east-1.amazonaws.com/174489633488/demo-delay-queue
+      uri: https://sqs.us-east-1.amazonaws.com/XXX/demo-delay-queue
 
 sqs:
   endpoint: http://localhost:9324/queue/default
