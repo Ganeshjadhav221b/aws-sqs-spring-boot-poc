@@ -11,5 +11,6 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface CustomAnnotation {
+
   String topicName() default "";
 }

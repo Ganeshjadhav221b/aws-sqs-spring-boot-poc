@@ -1,19 +1,16 @@
 package com.ns.awssqspoc.kafka;
 
-import com.ns.awssqspoc.annotations.CustomAnnotation;
 import com.ns.awssqspoc.exceptions.CustomRetryableException;
 import com.ns.awssqspoc.exceptions.FirstException;
 import com.ns.awssqspoc.exceptions.SecondException;
 import com.ns.awssqspoc.exceptions.ShouldSkipBothRetriesException;
 import java.time.ZonedDateTime;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-@ConditionalOnProperty(name = "kafka-config.avro-enabled", havingValue = "false", matchIfMissing = true)
 class KafkaListenerExample {
 
   //Created 3 topics at app. start-
@@ -27,9 +24,10 @@ class KafkaListenerExample {
 //  kafkaTemplate = "kafkaRetryTemplate",
 //  autoCreateTopics = "true")
   @KafkaListener(topics = "demo-1", groupId = "my-group", containerFactory =
-      "kafkaListenerContainerFactory"
+      "kafkaListenerContainerFactory",
+      errorHandler = "sqsErrorHandler"
   )
-  @CustomAnnotation(topicName = "demo-1")
+//  @CustomAnnotation(topicName = "demo-1")
   void listener(String value) throws ShouldSkipBothRetriesException {
 
     log.info(ZonedDateTime.now() + " ko mila hai ye - " + value);

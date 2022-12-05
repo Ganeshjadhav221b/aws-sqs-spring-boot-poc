@@ -25,9 +25,11 @@ public class HandlerAspect {
 
   @Autowired
   SqsMessageProducerService sqsMessageProducerService;
-//  @AfterThrowing(value="execution(* com.payufin.gringotts.controllers..*(..))", throwing = "ex")
-  @AfterThrowing(value = "@annotation(customAnnotation)" , throwing = "ex")
-  public Object handle(JoinPoint joinPoint, Exception ex, CustomAnnotation customAnnotation) throws Throwable {
+
+  //  @AfterThrowing(value="execution(* com.payufin.gringotts.controllers..*(..))", throwing = "ex")
+  @AfterThrowing(value = "@annotation(customAnnotation)", throwing = "ex")
+  public Object handle(JoinPoint joinPoint, Exception ex, CustomAnnotation customAnnotation)
+      throws Throwable {
     Object[] args = joinPoint.getArgs();
     final String methodName = joinPoint.getTarget().getClass().getSimpleName().concat(" ")
         .concat(joinPoint.getSignature().getName());

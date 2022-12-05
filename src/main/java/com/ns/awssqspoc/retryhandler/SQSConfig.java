@@ -14,32 +14,33 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class SQSConfig {
 
-    @Value("${cloud.aws.credentials.access-key}")
-    private String accessKey;
+  @Value("${cloud.aws.credentials.access-key}")
+  private String accessKey;
 
-    @Value("${cloud.aws.credentials.secret-key}")
-    private String secretKey;
-    @Value("${cloud.aws.region.static}")
-    private String region;
+  @Value("${cloud.aws.credentials.secret-key}")
+  private String secretKey;
+  @Value("${cloud.aws.region.static}")
+  private String region;
 
-    @Value("${cloud.aws.end-point.uri}")
-    private String amazonEndpoint;
+  @Value("${cloud.aws.end-point.uri}")
+  private String amazonEndpoint;
 
 
-    @Bean
-    public QueueMessagingTemplate queueMessagingTemplate() {
-        return new QueueMessagingTemplate(amazonSQSAsync());
-    }
+  @Bean
+  public QueueMessagingTemplate queueMessagingTemplate() {
+    return new QueueMessagingTemplate(amazonSQSAsync());
+  }
 
-    @Bean
-    @Primary
-    public AmazonSQSAsync amazonSQSAsync() {
-        return AmazonSQSAsyncClientBuilder.standard().withEndpointConfiguration(endpointConfig())
-                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
-                .build();
-    }
+  @Bean
+  @Primary
+  public AmazonSQSAsync amazonSQSAsync() {
+    return AmazonSQSAsyncClientBuilder.standard().withEndpointConfiguration(endpointConfig())
+        .withCredentials(
+            new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
+        .build();
+  }
 
-    private EndpointConfiguration endpointConfig() {
-      return  new EndpointConfiguration(amazonEndpoint, region);
-    }
+  private EndpointConfiguration endpointConfig() {
+    return new EndpointConfiguration(amazonEndpoint, region);
+  }
 }

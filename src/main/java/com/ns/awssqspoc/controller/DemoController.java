@@ -23,6 +23,10 @@ public class DemoController {
 
   @Value("${kafka-config.topic-name}")
   String topicName;
+  @Autowired
+  SqsMessageProducerService sqsMessageProducerService;
+  @Autowired
+  private QueueMessagingTemplate queueMessagingTemplate;
 
   @GetMapping("/demo")
   public String echo() {
@@ -44,11 +48,6 @@ public class DemoController {
     return value + " pushed";
   }
 
-
-  @Autowired
-  SqsMessageProducerService sqsMessageProducerService;
-  @Autowired
-  private QueueMessagingTemplate queueMessagingTemplate;
   @PostMapping("/sqs/demo-1")
   public String sendToQueue(@RequestParam("value") String value) {
     log.info("Inside demo service1..");
