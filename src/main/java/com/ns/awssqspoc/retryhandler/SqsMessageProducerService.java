@@ -18,9 +18,8 @@ public class SqsMessageProducerService {
   @Value("${cloud.aws.end-point.sqs}")
   private String amazonSQSEndpoint;
 
-  public void sendMessage(String messageBody) {
-    Message<String> messageBuilt = MessageBuilder.withPayload(messageBody).build();
-    queueMessagingTemplate.send(amazonSQSEndpoint, messageBuilt);
-    log.info("message sent: " + messageBody);
+  public void sendMessage(Message<?> message) {
+    queueMessagingTemplate.send(amazonSQSEndpoint, message);
+    log.info("message sent: {}", message);
   }
 }

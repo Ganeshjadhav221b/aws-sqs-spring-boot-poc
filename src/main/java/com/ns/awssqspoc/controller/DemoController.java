@@ -52,8 +52,7 @@ public class DemoController {
   public String sendToQueue(@RequestParam("value") String value) {
     log.info("Inside demo service1..");
     Message<String> messageBuilt = MessageBuilder.withPayload(value).build();
-//    queueMessagingTemplate.send(amazonSQSEndpoint, messageBuilt);
-    sqsMessageProducerService.sendMessage(value);
+    sqsMessageProducerService.sendMessage(messageBuilt);
     return value + " pushed";
   }
 }

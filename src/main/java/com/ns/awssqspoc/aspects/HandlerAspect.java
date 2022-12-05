@@ -34,7 +34,7 @@ public class HandlerAspect {
     final String methodName = joinPoint.getTarget().getClass().getSimpleName().concat(" ")
         .concat(joinPoint.getSignature().getName());
     log.info("handle exception : {} : {}", methodName, args);
-    sqsMessageProducerService.sendMessage((String) args[0]);
+//    sqsMessageProducerService.sendMessage((String) args[0]);
 //    if(Collections.singleton("list-of-exceptions").contains(ex.getClass().getSimpleName()))){
 //      processAgain();
 //    }

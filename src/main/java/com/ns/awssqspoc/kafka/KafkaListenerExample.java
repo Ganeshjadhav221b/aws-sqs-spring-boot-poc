@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
+public
 class KafkaListenerExample {
 
   //Created 3 topics at app. start-
@@ -28,9 +29,9 @@ class KafkaListenerExample {
       errorHandler = "sqsErrorHandler"
   )
 //  @CustomAnnotation(topicName = "demo-1")
-  void listener(String value) throws ShouldSkipBothRetriesException {
+  public void listener(String value) throws ShouldSkipBothRetriesException {
 
-    log.info(ZonedDateTime.now() + " ko mila hai ye - " + value);
+    log.info("mila hai ye - " + value);
     if (value.endsWith("0")) {
       throw new CustomRetryableException();
     }
