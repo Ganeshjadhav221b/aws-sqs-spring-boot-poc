@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SqsMessageProducerService {
 
-  @Value("${cloud.aws.end-point.uri}")
-  private String amazonSQSEndpoint;
 
   @Autowired
   private QueueMessagingTemplate queueMessagingTemplate;
+  @Value("${cloud.aws.end-point.sqs}")
+  private String amazonSQSEndpoint;
 
   public void sendMessage(String messageBody) {
     Message<String> messageBuilt = MessageBuilder.withPayload(messageBody).build();

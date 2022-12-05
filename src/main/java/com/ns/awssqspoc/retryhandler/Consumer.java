@@ -9,7 +9,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class Consumer {
 
-    @SqsListener(value = "demo-delay-queue",deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
+    @SqsListener(value = "default",deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
+    public void processMessage2(String message) {
+        log.info("Message from SQS {}", message);
+    }
+
+    @SqsListener(value = "${cloud.aws.end-point.sqs}", deletionPolicy =
+        SqsMessageDeletionPolicy.ON_SUCCESS)
     public void processMessage(String message) {
         log.info("Message from SQS {}", message);
     }

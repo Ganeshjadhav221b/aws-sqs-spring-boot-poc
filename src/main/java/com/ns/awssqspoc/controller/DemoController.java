@@ -44,20 +44,17 @@ public class DemoController {
     return value + " pushed";
   }
 
-  @Value("${cloud.aws.end-point.uri}")
-  private String amazonSQSEndpoint;
 
-//
-//  @Autowired
-//  SqsMessageProducerService sqsMessageProducerService;
-//  @Autowired
-//  private QueueMessagingTemplate queueMessagingTemplate;
-//  @PostMapping("/sqs/demo-1")
-//  public String sendToQueue(@RequestParam("value") String value) {
-//    log.info("Inside demo service1..");
-//    Message<String> messageBuilt = MessageBuilder.withPayload(value).build();
-////    queueMessagingTemplate.send(amazonSQSEndpoint, messageBuilt);
-//    sqsMessageProducerService.sendMessage(value);
-//    return value + " pushed";
-//  }
+  @Autowired
+  SqsMessageProducerService sqsMessageProducerService;
+  @Autowired
+  private QueueMessagingTemplate queueMessagingTemplate;
+  @PostMapping("/sqs/demo-1")
+  public String sendToQueue(@RequestParam("value") String value) {
+    log.info("Inside demo service1..");
+    Message<String> messageBuilt = MessageBuilder.withPayload(value).build();
+//    queueMessagingTemplate.send(amazonSQSEndpoint, messageBuilt);
+    sqsMessageProducerService.sendMessage(value);
+    return value + " pushed";
+  }
 }

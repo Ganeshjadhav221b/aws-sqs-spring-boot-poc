@@ -22,20 +22,14 @@ server:
 cloud:
   aws:
     region:
-      static: us-east-1
+      static: eu-central-1
       auto: false
     credentials:
-      access-key:
-      secret-key:
+      access-key: notValidKey
+      secret-key: notValidSecret
     end-point:
-      uri: https://sqs.us-east-1.amazonaws.com/XXX/demo-delay-queue
-
-sqs:
-  endpoint: http://localhost:9324/queue/default
-aws:
-  region: us-central-1
-  access-key: notValidKey
-  secret-key: notValidSecret
+      uri: http://localhost:9324
+      sqs: http://localhost:9324/queue/default
 
 
 kafka-config:
