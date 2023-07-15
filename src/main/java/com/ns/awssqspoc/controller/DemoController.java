@@ -25,7 +25,7 @@ public class DemoController {
   String topicName;
   @Autowired
   SqsMessageProducerService sqsMessageProducerService;
-  @Autowired
+//  @Autowired
   private QueueMessagingTemplate queueMessagingTemplate;
 
   @GetMapping("/demo")
@@ -51,8 +51,14 @@ public class DemoController {
   @PostMapping("/sqs/demo-1")
   public String sendToQueue(@RequestParam("value") String value) {
     log.info("Inside demo service1..");
-    Message<String> messageBuilt = MessageBuilder.withPayload(value).build();
-    sqsMessageProducerService.sendMessage(messageBuilt);
+    sqsMessageProducerService.sendMessage(value);
+    return value + " pushed";
+  }
+
+  @PostMapping("/sqs/demo-2")
+  public String sendToQueueWithRetries(@RequestParam("value") String value) {
+    log.info("Inside demo service1..");
+    sqsMessageProducerService.sendMessageWithRetries(value);
     return value + " pushed";
   }
 }
